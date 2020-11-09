@@ -81,13 +81,35 @@ public class EmpleadoController extends HttpServlet {
 		
 	}
 
-	private void eliminarEmpleado(HttpServletRequest request, HttpServletResponse response) {
+	private void eliminarEmpleado(HttpServletRequest request, HttpServletResponse response) throws ServletException, SQLException, IOException {
 		// TODO Auto-generated method stub
+		String id=request.getParameter("id");
+		EmpleadoDao eDao=new EmpleadoDao();
+		Empleado e =eDao.find(id);
+		eDao.delete(e);
+		request.setAttribute("listEmpleados", eDao.list());
+		RequestDispatcher dispatcher = request.getRequestDispatcher("Index.jsp");
+		dispatcher.forward(request, response);
+
 		
 	}
 
-	private void insertarEmpleado(HttpServletRequest request, HttpServletResponse response) {
+	private void insertarEmpleado(HttpServletRequest request, HttpServletResponse response)  throws ServletException, SQLException, IOException {
 		// TODO Auto-generated method stub
+		
+		Empleado e=new Empleado();
+		e.setCedula(request.getParameter("cedula"));
+		e.setNombre(request.getParameter("nombre"));
+		e.setCodigo(request.getParameter("codigo"));
+		e.setFechaingreso(null);
+		e.setFechanacimiento(null);
+		e.setFecharetiro(null);
+		
+		EmpleadoDao eDao=new EmpleadoDao();
+		eDao.insert(e);
+		request.setAttribute("listEmpleados", eDao.list());
+		RequestDispatcher dispatcher = request.getRequestDispatcher("Index.jsp");
+		dispatcher.forward(request, response);
 		
 	}
 
@@ -103,7 +125,7 @@ public class EmpleadoController extends HttpServlet {
 		List <Empleado> listEmpleados =  empleadoDao.list();
 		
 		request.setAttribute("listEmpleados", listEmpleados);
-		RequestDispatcher dispatcher = request.getRequestDispatcher("ListEmpleado.jsp");
+		RequestDispatcher dispatcher = request.getRequestDispatcher("Index.jsp");
 		dispatcher.forward(request, response);
 	}
 
