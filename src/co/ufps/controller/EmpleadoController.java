@@ -1,6 +1,7 @@
 package co.ufps.controller;
 
 import java.io.IOException;
+import java.sql.Date;
 import java.sql.SQLException;
 import java.util.List;
 
@@ -71,13 +72,33 @@ public class EmpleadoController extends HttpServlet {
 		doGet(request, response);
 	}
 	
-	private void showEditEmpleado(HttpServletRequest request, HttpServletResponse response) {
+	private void showEditEmpleado(HttpServletRequest request, HttpServletResponse response) throws ServletException, SQLException, IOException  {
 		// TODO Auto-generated method stub
-		
+		String id=request.getParameter("id");
+		EmpleadoDao eDao=new EmpleadoDao();
+		Empleado empleado =eDao.find(id);
+		request.setAttribute("empleado", empleado);
+		RequestDispatcher dispatcher = request.getRequestDispatcher("Nuevo.jsp");
+		dispatcher.forward(request, response);
 	}
 
-	private void actualizarEmpleado(HttpServletRequest request, HttpServletResponse response) {
-		// TODO Auto-generated method stub
+	private void actualizarEmpleado(HttpServletRequest request, HttpServletResponse response) throws ServletException, SQLException, IOException {
+		// TODO Auto-generated method stub.
+		EmpleadoDao eDao=new EmpleadoDao();
+		Empleado e=eDao.find(request.getParameter("codigo"));
+		e.setCedula(request.getParameter("cedula"));
+		e.setNombre(request.getParameter("nombre"));
+		e.setCodigo(request.getParameter("codigo"));
+		Date fechaNac=Date.valueOf(request.getParameter("fechaNacimiento"));
+		e.setFechanacimiento(fechaNac);
+		Date fechaIng=Date.valueOf(request.getParameter("fechaIngreso"));
+		e.setFechaingreso(fechaIng);
+		Date fechaRet=Date.valueOf(request.getParameter("fechaRetiro"));
+		e.setFecharetiro(fechaRet);
+		eDao.update(e);
+		request.setAttribute("listEmpleados", eDao.list());
+		RequestDispatcher dispatcher = request.getRequestDispatcher("Index.jsp");
+		dispatcher.forward(request, response);
 		
 	}
 
@@ -101,9 +122,12 @@ public class EmpleadoController extends HttpServlet {
 		e.setCedula(request.getParameter("cedula"));
 		e.setNombre(request.getParameter("nombre"));
 		e.setCodigo(request.getParameter("codigo"));
-		e.setFechaingreso(null);
-		e.setFechanacimiento(null);
-		e.setFecharetiro(null);
+		Date fechaNac=Date.valueOf(request.getParameter("fechaNacimiento"));
+		e.setFechanacimiento(fechaNac);
+		Date fechaIng=Date.valueOf(request.getParameter("fechaIngreso"));
+		e.setFechaingreso(fechaIng);
+		Date fechaRet=Date.valueOf(request.getParameter("fechaRetiro"));
+		e.setFecharetiro(fechaRet);
 		
 		EmpleadoDao eDao=new EmpleadoDao();
 		eDao.insert(e);
