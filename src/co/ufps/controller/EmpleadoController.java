@@ -3,6 +3,7 @@ package co.ufps.controller;
 import java.io.IOException;
 import java.sql.Date;
 import java.sql.SQLException;
+import java.util.LinkedList;
 import java.util.List;
 
 import javax.servlet.RequestDispatcher;
@@ -53,6 +54,9 @@ public class EmpleadoController extends HttpServlet {
 			case "/update":
 				actualizarEmpleado(request, response);
 				break;
+			case "/buscar":
+				buscarEmpleado(request, response);
+				break;	
 			default:
 				listEmpleado(request,response);	
 					
@@ -151,6 +155,21 @@ public class EmpleadoController extends HttpServlet {
 		request.setAttribute("listEmpleados", listEmpleados);
 		RequestDispatcher dispatcher = request.getRequestDispatcher("Index.jsp");
 		dispatcher.forward(request, response);
+	}
+	
+	
+	private void buscarEmpleado(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		String codigo=request.getParameter("codigo");
+		EmpleadoDao empleadoDao=new EmpleadoDao();
+		Empleado empleado =empleadoDao.find(codigo);
+		List <Empleado> listEmpleados=new LinkedList<>();
+		listEmpleados.add(empleado);
+		
+		
+		request.setAttribute("listEmpleados", listEmpleados);
+		RequestDispatcher dispatcher = request.getRequestDispatcher("Index.jsp");
+		dispatcher.forward(request, response);
+		
 	}
 
 }
