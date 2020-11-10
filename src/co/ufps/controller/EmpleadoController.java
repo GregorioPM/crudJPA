@@ -101,7 +101,7 @@ public class EmpleadoController extends HttpServlet {
 		e.setFecharetiro(fechaRet);
 		eDao.update(e);
 		request.setAttribute("listEmpleados", eDao.list());
-		RequestDispatcher dispatcher = request.getRequestDispatcher("Index.jsp");
+		RequestDispatcher dispatcher = request.getRequestDispatcher("Listar.jsp");
 		dispatcher.forward(request, response);
 		
 	}
@@ -113,7 +113,7 @@ public class EmpleadoController extends HttpServlet {
 		Empleado e =eDao.find(id);
 		eDao.delete(e);
 		request.setAttribute("listEmpleados", eDao.list());
-		RequestDispatcher dispatcher = request.getRequestDispatcher("Index.jsp");
+		RequestDispatcher dispatcher = request.getRequestDispatcher("Listar.jsp");
 		dispatcher.forward(request, response);
 
 		
@@ -132,11 +132,10 @@ public class EmpleadoController extends HttpServlet {
 		e.setFechaingreso(fechaIng);
 		Date fechaRet=Date.valueOf(request.getParameter("fechaRetiro"));
 		e.setFecharetiro(fechaRet);
-		
 		EmpleadoDao eDao=new EmpleadoDao();
 		eDao.insert(e);
 		request.setAttribute("listEmpleados", eDao.list());
-		RequestDispatcher dispatcher = request.getRequestDispatcher("Index.jsp");
+		RequestDispatcher dispatcher = request.getRequestDispatcher("Listar.jsp");
 		dispatcher.forward(request, response);
 		
 	}
@@ -153,7 +152,7 @@ public class EmpleadoController extends HttpServlet {
 		List <Empleado> listEmpleados =  empleadoDao.list();
 		
 		request.setAttribute("listEmpleados", listEmpleados);
-		RequestDispatcher dispatcher = request.getRequestDispatcher("Index.jsp");
+		RequestDispatcher dispatcher = request.getRequestDispatcher("Listar.jsp");
 		dispatcher.forward(request, response);
 	}
 	
@@ -164,10 +163,8 @@ public class EmpleadoController extends HttpServlet {
 		Empleado empleado =empleadoDao.find(codigo);
 		List <Empleado> listEmpleados=new LinkedList<>();
 		listEmpleados.add(empleado);
-		
-		
 		request.setAttribute("listEmpleados", listEmpleados);
-		RequestDispatcher dispatcher = request.getRequestDispatcher("Index.jsp");
+		RequestDispatcher dispatcher = request.getRequestDispatcher("Listar.jsp");
 		dispatcher.forward(request, response);
 		
 	}

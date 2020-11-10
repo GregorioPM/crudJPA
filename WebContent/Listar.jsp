@@ -13,8 +13,12 @@
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css" integrity="sha384-TX8t27EcRE3e/ihU7zmQxVncDAy5uIKz4rEkgIXeMed4M0jlfIDPvg6uqKI2xXr2" crossorigin="anonymous">
 </head>
 <body>
+
 	<header>
-		<nav class="navbar navbar-expand-md navbar-dark">
+		<nav class="navbar navbar-expand-md navbar-dark mb-5" style="background-color:#00bcd4;">
+		<div class="d-flex justify-content-center">
+				<a href="/CrudJPA" class="navbar-brand" style="color:white;">Inicio </a>
+			</div>
 			<div>
 				<a href="#" class="navbar-brand">Gestion de Empleados </a>
 			</div>
