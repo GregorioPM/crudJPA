@@ -23,7 +23,7 @@ import co.ufps.model.Empleado;
 public class EmpleadoController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
-    /**
+    /**hola
      * @see HttpServlet#HttpServlet()
      */
     public EmpleadoController() {
